@@ -80,7 +80,11 @@ trait FunSets extends FunSetsInterface:
     //   else
     //     iter(a+1)
     // iter(-bound)
-      !forall(s, x=> p(x))
+
+    // The grader asks for an implementation of exists in terms of forall
+    // Hence there exists an element in s satisfying predicate p <=> Not all elements in s satisfying p's negation
+    // Damn it! I had to look at somebody's else code to realize the way to express negated p: x => !p(x), given p: Int => Boolean, 
+    !forall(s, x => !p(x))
 
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
