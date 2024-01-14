@@ -89,7 +89,20 @@ trait FunSets extends FunSetsInterface:
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-  def map(s: FunSet, f: Int => Int): FunSet = (someInt: Int) => s(f(someInt))
+  def map(s: FunSet, f: Int => Int): FunSet = 
+    
+    // Incorrect idea: This defined a set of Ints x s.t. f(x) is in s 
+    // (someInt: Int) => s(f(someInt))
+
+    // Correct idea 1: one conceptually correct representation, though not viable, is the following
+    // Given the transformation f, say if we could obtain the inversion of f, denoted by f`,
+    // Then the set obtained by applying f to s, can be decribed as the set of Ints, y
+    // s.t. f`(y) is an element of s. The (hypothetical) code would be: (someInt: Int) => s(f`(someInt))
+
+    // Correct idea 2: viable representation of this relation is that the element of the set by applying f to s
+    // can be decribed as some Ints y s.t there EXISTS an Int x in s s.t. f(x) == y, hence making use the exists
+    // implementing map
+    (someInt: Int) => exists(s, (x: Int) => someInt == f(x))
 
   /**
    * Displays the contents of a set
